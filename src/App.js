@@ -7,6 +7,28 @@ function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
+  let [quarter, setQuarter] = useState(0);
+  let [downs, setDowns] = useState(-1);
+
+  if (quarter <= 3){
+    quarter++;
+  }
+
+  if (downs <= 4){
+    downs++;
+  }
+
+
+  if (downs === 5){
+    downs = 1;
+  }
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   };
+  // }, [input])
+
   return (
     <div className="container">
       <section className="scoreboard">
@@ -24,9 +46,14 @@ function App() {
             <div className="away__score">{awayScore}</div>
           </div>
         </div>
-        <BottomRow />
+        <BottomRow 
+          quarter = {quarter}
+          downs = {downs}
+        />
       </section>
       <section className="buttons">
+      <button onClick={() => setDowns(downs)} className="homeButtons__touchdown">Set Downs</button>
+
         <div className="homeButtons">
           {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
           <button onClick={() => setHomeScore(homeScore + 7)} className="homeButtons__touchdown">Home Touchdown</button>
@@ -36,6 +63,8 @@ function App() {
           <button onClick={() => setAwayScore(awayScore + 7)} className="awayButtons__touchdown">Away Touchdown</button>
           <button onClick={() => setAwayScore(awayScore + 3)} className="awayButtons__fieldGoal">Away Field Goal</button>
         </div>
+        <button onClick={() => setQuarter(quarter)} className="homeButtons__touchdown">Set Quarter</button>
+
       </section>
     </div>
   );
